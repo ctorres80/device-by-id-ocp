@@ -7,7 +7,9 @@ For each node that will be included in:
 
     oc get node -l cluster.ocs.openshift.io/openshift-storage=
 
-It will create a pv for discovered device-byid and those local pvs will be consumed by OpenShift Container Storage. Followig an out example:
+It will create a pv for discovered device-byid and those local pvs will be consumed by OpenShift Container Storage.
+
+Followig an example:
 
     [ctorres-redhat.com@clientvm 130 ~/deploy]$ ansible-playbook devices_by_id.yml
     [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
