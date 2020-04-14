@@ -5,7 +5,9 @@ The playbook will dicover the /dev/disk/by-id/XXX on each OCP worker node that h
 
     oc get node -l cluster.ocs.openshift.io/openshift-storage=
 
-The playbook will return local-storage-block.yaml, please review and modify or adapt to your requirements, you can create the CR for consuming local drives throug Local Storage Operator LSO with the following command:
+The playbook will return local-storage-block.yaml, please review and modify or adapt to your requirements.
+
+With the local-storage-block.yaml you can create the CR for consuming local drives throug Local Storage Operator LSO with the following command:
 
     oc create -f local-storage-block.yaml
     
