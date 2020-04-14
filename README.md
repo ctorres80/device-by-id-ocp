@@ -6,7 +6,7 @@ The playbook will dicover the /dev/disk/by-id/XXX on each OCP worker node that h
     oc get node -l cluster.ocs.openshift.io/openshift-storage=
 
 The playbook will return local-storage-block.yaml, please review and modify or adapt to your requirements.
-    [source, yaml]
+    
     [ctorres-redhat.com@clientvm 0 ~/deploy/device-by-id-ocp master ⭑|…1]$ cat local-storage-block.yaml
     ---
     apiVersion: local.storage.openshift.io/v1
@@ -38,8 +38,8 @@ The playbook will return local-storage-block.yaml, please review and modify or a
             - /dev/disk/by-id/nvme-Amazon_EC2_NVMe_Instance_Storage_AWS66F604C3B81EE5523 # ip-10-0-175-94.eu-central-1.compute.internal 	 nvme1n1 	  1.7T
             - /dev/disk/by-id/nvme-Amazon_EC2_NVMe_Instance_Storage_AWS18C4F9CA036362729 # ip-10-0-175-94.eu-central-1.compute.internal 	 nvme2n1 	  1.7T
             - /dev/disk/by-id/nvme-Amazon_EC2_NVMe_Instance_Storage_AWS68C4F9CA036362729 # ip-10-0-175-94.eu-central-1.compute.internal 	 nvme3n1 	  1.7T
-
     ---
+    
 With the local-storage-block.yaml you can create the CR for consuming local drives throug Local Storage Operator LSO with the following command:
 
     oc create -f local-storage-block.yaml
