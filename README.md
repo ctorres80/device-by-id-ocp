@@ -1,15 +1,25 @@
 # device-by-id-ocp
-This is a super simple and all fashion playbook for discovery local drives and prepare the local-storage-block.yaml that you can use for create the CR with the following command:
+This is a super simple and all fashion playbook for discovery local drives and prepare the local-storage-block.yaml
 
-    oc create -f local-storage-block.yaml
-
-For each node that will be included in:
+The playbook will dicover the /dev/disk/by-id/XXX on each OCP worker node that has the following label:
 
     oc get node -l cluster.ocs.openshift.io/openshift-storage=
 
-It will create a pv for discovered device-byid and those local pvs will be consumed by OpenShift Container Storage.
+The playbook will return local-storage-block.yaml, please review and modify or adapt to your requirements, you can create the CR for consuming local drives throug Local Storage Operator LSO with the following command:
+
+    oc create -f local-storage-block.yaml
+    
+It will create a pv for each discovered /dev/disk/by-id/XXX and those local pvs will be consumed by OpenShift Container Storage.
 
 Followig an example:
+
+    [ctorres-redhat.com@clientvm 130 ~/deploy]$ ansible --version
+    ansible 2.8.8
+      config file = /home/ctorres-redhat.com/deploy/ansible.cfg
+      configured module search path = [u'/home/ctorres-redhat.com/deploy/library']
+      ansible python module location = /usr/lib/python2.7/site-packages/ansible
+      executable location = /usr/bin/ansible
+      python version = 2.7.5 (default, May 31 2018, 09:41:32) [GCC 4.8.5 20150623 (Red Hat 4.8.5-28)]
 
     [ctorres-redhat.com@clientvm 130 ~/deploy]$ ansible-playbook devices_by_id.yml
     [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
