@@ -1,5 +1,5 @@
 # device-by-id-ocp
-This is a super simple and all fashion playbook for discovery local drives and prepare the local-storage-block.yaml
+This is a super simple and all fashion (sorry for the shell module, awk, grep, sed and more) playbook for discovery local drives and prepare the local-storage-block.yaml
 
 The playbook will dicover the /dev/disk/by-id/XXX on each OCP worker node that has the following label:
 
