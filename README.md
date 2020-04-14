@@ -6,9 +6,8 @@ The playbook will dicover the /dev/disk/by-id/XXX on each OCP worker node that h
     oc get node -l cluster.ocs.openshift.io/openshift-storage=
 
 The playbook will return local-storage-block.yaml, please review and modify or adapt to your requirements.
-
-    [ctorres-redhat.com@clientvm 0 ~/deploy/device-by-id-ocp master ⭑|…1]$ cat local-storage-block.yaml
     [source, yaml]
+    [ctorres-redhat.com@clientvm 0 ~/deploy/device-by-id-ocp master ⭑|…1]$ cat local-storage-block.yaml
     ---
     apiVersion: local.storage.openshift.io/v1
     kind: LocalVolume
