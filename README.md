@@ -7,6 +7,37 @@ The playbook will dicover the /dev/disk/by-id/XXX on each OCP worker node that h
 
 The playbook will return local-storage-block.yaml, please review and modify or adapt to your requirements.
 
+    [ctorres-redhat.com@clientvm 0 ~/deploy/device-by-id-ocp master ⭑|…1]$ cat local-storage-block.yaml
+    apiVersion: local.storage.openshift.io/v1
+    kind: LocalVolume
+    metadata:
+      name: local-block
+      namespace: local-storage
+    spec:
+      nodeSelector:
+        nodeSelectorTerms:
+        - matchExpressions:
+            - key: cluster.ocs.openshift.io/openshift-storage
+              operator: In
+              values:
+              - ""
+      storageClassDevices:
+        - storageClassName: localblock
+          volumeMode: Block
+          devicePaths:
+            - /dev/disk/by-id/nvme-Amazon_EC2_NVMe_Instance_Storage_AWS1AC0E1AFFAB8A03A3 # ip-10-0-135-45.eu-central-1.compute.internal 	 nvme0n1 	  1.7T
+            - /dev/disk/by-id/nvme-Amazon_EC2_NVMe_Instance_Storage_AWS6AC0E1AFFAB8A03A3 # ip-10-0-135-45.eu-central-1.compute.internal 	 nvme1n1 	  1.7T
+            - /dev/disk/by-id/nvme-Amazon_EC2_NVMe_Instance_Storage_AWS1F1C27E2E890F5210 # ip-10-0-135-45.eu-central-1.compute.internal 	 nvme2n1 	  1.7T
+            - /dev/disk/by-id/nvme-Amazon_EC2_NVMe_Instance_Storage_AWS6F1C27E2E890F5210 # ip-10-0-135-45.eu-central-1.compute.internal 	 nvme3n1 	  1.7T
+            - /dev/disk/by-id/nvme-Amazon_EC2_NVMe_Instance_Storage_AWS15C769136DCE431E1 # ip-10-0-155-116.eu-central-1.compute.internal 	 nvme0n1 	  1.7T
+            - /dev/disk/by-id/nvme-Amazon_EC2_NVMe_Instance_Storage_AWS65C769136DCE431E1 # ip-10-0-155-116.eu-central-1.compute.internal 	 nvme1n1 	  1.7T
+            - /dev/disk/by-id/nvme-Amazon_EC2_NVMe_Instance_Storage_AWS1A3C0A4A49BCF144B # ip-10-0-155-116.eu-central-1.compute.internal 	 nvme2n1 	  1.7T
+            - /dev/disk/by-id/nvme-Amazon_EC2_NVMe_Instance_Storage_AWS6A3C0A4A49BCF144B # ip-10-0-155-116.eu-central-1.compute.internal 	 nvme3n1 	  1.7T
+            - /dev/disk/by-id/nvme-Amazon_EC2_NVMe_Instance_Storage_AWS16F604C3B81EE5523 # ip-10-0-175-94.eu-central-1.compute.internal 	 nvme0n1 	  1.7T
+            - /dev/disk/by-id/nvme-Amazon_EC2_NVMe_Instance_Storage_AWS66F604C3B81EE5523 # ip-10-0-175-94.eu-central-1.compute.internal 	 nvme1n1 	  1.7T
+            - /dev/disk/by-id/nvme-Amazon_EC2_NVMe_Instance_Storage_AWS18C4F9CA036362729 # ip-10-0-175-94.eu-central-1.compute.internal 	 nvme2n1 	  1.7T
+            - /dev/disk/by-id/nvme-Amazon_EC2_NVMe_Instance_Storage_AWS68C4F9CA036362729 # ip-10-0-175-94.eu-central-1.compute.internal 	 nvme3n1 	  1.7T
+
 With the local-storage-block.yaml you can create the CR for consuming local drives throug Local Storage Operator LSO with the following command:
 
     oc create -f local-storage-block.yaml
