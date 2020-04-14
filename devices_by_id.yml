@@ -14,7 +14,7 @@
 
     - name: "Collect device by-id"
       shell: |
-        oc debug node/{{ item }} -- ls -l {{ device_by_id_path }}  | egrep -v "^total|dm-" | sed -e 's/ -> / /g ; s/..\/..\///g' | awk -v hostname="{{ item }}" -F ' ' '{ print hostname,$NF,"/dev/disk/by-id/"$(NF-1)}' | sort -u -k2,2 >> {{ file_tmp }}
+        oc debug node/{{ item }} -- ls -l {{ device_by_id_path }}  | egrep -v "^total|-part[1-9]|dm-[0-9]" | sed -e 's/ -> / /g ; s/..\/..\///g' | awk -v hostname="{{ item }}" -F ' ' '{ print hostname,$NF,"/dev/disk/by-id/"$(NF-1)}' | sort -u -k2,2 >> {{ file_tmp }}
       loop: "{{ workers.stdout_lines }}"
 
     - name: "Collect device by-id and size"
@@ -49,7 +49,7 @@
               device=$(echo $line | cut -d ' ' -f2)
               device_byid=$(echo $line | cut -d ' ' -f3)
               size=$(oc debug node/$hostname -- lsblk -n -o SIZE /dev/$device)
-              echo -e "        - $device_byid # $hostname \t $device \t $size" >> {{ config_yaml }}
+              echo "        - $device_byid # $device    $size    $hostname" >> {{ config_yaml }}
             done
 
     - debug: msg="Following the devices available:\n\n{{ lookup('file', '{{ config_yaml }}') }}"
