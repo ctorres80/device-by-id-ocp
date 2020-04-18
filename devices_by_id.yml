@@ -4,8 +4,8 @@
     connection: local
     vars:
       device_by_id_path: "/host/dev/disk/by-id"
-      file_tmp: "./file_tmp_1"
-      file_tmp2: "./file_tmp_2"
+      file_tmp_1: "./file_tmp_1"
+      file_tmp_2: "./file_tmp_2"
       config_yaml: "./local-storage-block.yaml"
       disk_size_bytes: 507374182400
     tasks:
