@@ -7,6 +7,7 @@
       file_tmp: "./file_tmp_1"
       file_tmp2: "./file_tmp_2"
       config_yaml: "./local-storage-block.yaml"
+      disk_size_bytes: 507374182400
     tasks:
     - name: "Collect OCS workers"
       shell: |
@@ -44,7 +45,7 @@
         oc debug node/{{ item }} -- lsblk -b -n -o name,SIZE | egrep -v "\-|rbd|loop" | awk -F ' ' '{ print $1,$2}' | sort -u -k1,1 > {{ file_tmp_2 }}
         join {{ file_tmp_1 }} {{ file_tmp_2 }} | while read line; do
           size=$(echo $line | awk -F ' ' '{print $NF}')
-          if [ $size -ge 507374182400 ]
+          if [ $size -ge {{ disk_size_bytes }} ]
           then
             let "size = $size/1024/1024/1024"
             device_byid=$(echo $line | awk -F ' ' '{print $3}')
